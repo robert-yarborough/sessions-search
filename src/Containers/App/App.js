@@ -3,13 +3,9 @@ import SessionForm from '../../Components/SessionForm';
 import Session from '../../Components/Session';
 
 
-
-
-
 const App = () => {
     const [sessions, setSession] = useState([
         {
-            id: 0,
             user_email: '',
             user_first_name: '',
             user_last_name: '',

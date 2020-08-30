@@ -9,7 +9,7 @@ function SessionForm({ addSession }){
         addSession(value);
         setValue(' ');
     };
-    console.log('value', value)
+    console.log('Session Form: Value', value)
     return (
         <form onSubmit={handleSubmit}>
             <input type='submit'
