@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 // list of predicate possibilities
 
 function Session({ session, index, removeSession }){
+    console.log('Session', session);
     const [ payload, setPayload ] = useState([
         {
             label: Object.keys(session)[0],
@@ -43,40 +44,18 @@ function Session({ session, index, removeSession }){
         }
     ]);
 
-
-
     console.log('state: value', payload);
-    console.log('session', Object.keys(session)[0]);
 
     return (
-        <div className='session'
-             style={{ textDecoration: (session.visits <= 0) ? 'line-through' : ''}}>
+        <div className='session'>
             <button onClick={() => removeSession(index)}>x</button>
-            {/*{Array.of(pred()).filter((data) => {*/}
-            {/*    const { children } = data.props;*/}
-            {/*    // iterate through array*/}
-            {/*    // return children.filter((val) => {*/}
-            {/*    //     const { value } = val.props;*/}
-            {/*    //     return (typeof value === "string") ? (*/}
-            {/*    //        `<select name="columns1" id="predicate1">*/}
-            {/*    //                 <option value="email">{'user email'}</option>*/}
-            {/*    //                 <option value="first name">{'user first name'}</option>*/}
-            {/*    //                 <option value="last name">{'user last name'}</option>*/}
-            {/*    //                 <option value="screen width">{'screen width'}</option>*/}
-            {/*    //               </select>`*/}
-            {/*    //     ) : null;*/}
-            {/*    // });*/}
-            {/*    return children.filter((val, index) => {*/}
-            {/*        const value = val.props;*/}
-            {/*        console.log('value!!!', val.props);*/}
-            {/*        return value*/}
-            {/*    });*/}
-            {/*})}*/}
-            <select name="" id="">
+            <select name="predicate" id={Math.random()} onChange={(event) => setPayload(payload.value)}>
                 {
-                    payload.map((item, index) => (
-                        <option key={index} value={item.value}>{item.value}</option>
-                    ))
+                    payload.map((item, index) => {
+                        return (
+                            <option key={index} value={item.value}>{item.label}</option>
+                        )
+                    })
                 }
             </select>
         </div>
