@@ -1,27 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import SessionForm from '../../Components/SessionForm';
 import Session from '../../Components/Session';
 
 
 const App = () => {
     const [sessions, setSession] = useState([]);
-
+    const [defaultSession, setDefaultSession ] = useState({
+        'user_email': '',
+        'user_first_name': '',
+        'user_last_name': '',
+        'screen_width': 0,
+        'screen_height': 0,
+        'visits': 0,
+        'page_response': 0,
+        'domain': '',
+        'path': '',
+    });
     useEffect(() => {
         async function getSession(){
-            const response = await fetch('/express-backend');
+            const response = await fetch('/default-session');
             const body = await response.json();
-            console.log('body', body);
             const iterateBody = body.map((session) => session);
             setSession(iterateBody);
         }
         getSession();
     }, []);
 
-
     console.log('sessions', sessions);
 
-    const addSession = (session) => {
-        const newSession = [...sessions, {session}];
+    const addSession = ({...value} = defaultSession) => {
+        const newSession = [...sessions, value];
+        console.log('App session', value);
+        console.log('newSession', newSession);
         setSession(newSession);
     };
 
@@ -36,14 +46,16 @@ const App = () => {
                 {sessions.map((session, index) => {
                     console.log('inside', session)
                     return (
-                        <Session
-                            key={index}
-                            index={index}
-                            session={session}
-                            removeSession={removeSession} />
-                    )
+                        <Fragment key={index}>
+                            <Session
+                                key={index}
+                                index={index}
+                                session={session}
+                                removeSession={removeSession} />
+                                <SessionForm addSession={addSession} />
+                        </Fragment>
+                    );
                 })}
-                <SessionForm addSession={addSession} />
         </div>
     );
 }

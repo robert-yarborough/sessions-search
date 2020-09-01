@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 
 // list of predicate possibilities
@@ -44,17 +44,15 @@ function Session({ session, index, removeSession }){
         }
     ]);
 
-    console.log('state: value', payload);
 
     return (
         <div className='session'>
             <button onClick={() => removeSession(index)}>x</button>
-            <select name="predicate" id={Math.random()} onChange={(event) => setPayload(payload.value)}>
+            <select name="predicate" id={Math.random()} onChange={(event) => setPayload(payload)}>
                 {
                     payload.map((item, index) => {
-                        return (
-                            <option key={index} value={item.value}>{item.label}</option>
-                        )
+                        console.log('item value', item);
+                        return (<option key={index} value={item.value}>{item.label}</option>);
                     })
                 }
             </select>
