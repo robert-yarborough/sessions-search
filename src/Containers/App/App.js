@@ -43,18 +43,16 @@ const App = () => {
 
     return (
         <div>
-                {sessions.map((session, index) => {
+            {sessions.map((session, index) => {
                     console.log('inside', session)
-                    return (
-                        <Fragment key={index}>
-                            <Session
-                                key={index}
-                                index={index}
-                                session={session}
-                                removeSession={removeSession} />
-                                <SessionForm addSession={addSession} />
-                        </Fragment>
-                    );
+                    return (<Fragment key={index}>
+                                <Session
+                                    key={index}
+                                    index={index}
+                                    session={session}
+                                    removeSession={removeSession} />
+                                    <SessionForm addSession={addSession} />
+                            </Fragment>);
                 })}
         </div>
     );

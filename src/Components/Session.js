@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+
 
 
 // list of predicate possibilities
+import {Predicate} from "./Predicate";
+import {StrOperand} from "./StrOperand";
+import {NumOperand} from "./NumOperand";
+
+
 
 function Session({ session, index, removeSession }){
-    console.log('Session', session);
-    const [ payload, setPayload ] = useState([
+    const [ predicate ] = useState([
         {
             label: Object.keys(session)[0],
             value: session.user_email,
@@ -43,19 +48,53 @@ function Session({ session, index, removeSession }){
             value: session.path,
         }
     ]);
+    const [ predicateVal, setPredicateVal ] = useState('');
+    const [ strOperator ] = useState([
+        {
+            value: 'equals',
+        },
+        {
+            value: 'contains',
+        },
+        {
+            value: 'starts with'
+        },
+        {
+            value: 'in list'
+        }
+    ]);
+    const [ numOperator ] = useState([
+        {
+            value: 'equals'
+        },
+        {
+            value: 'between'
+        },
+        {
+            value: 'greaterThan'
+        },
+        {
+            value: 'lessThan'
+        },
+        {
+            value: 'in list'
+        }
+    ]);
 
+    console.log('predicate-scope', predicate);
+    console.log('predicateVal-scope', predicateVal);
+
+    function handlePredicateValue(newValue){
+        console.log('newValue', newValue);
+        setPredicateVal(newValue);
+    }
 
     return (
         <div className='session'>
             <button onClick={() => removeSession(index)}>x</button>
-            <select name="predicate" id={Math.random()} onChange={(event) => setPayload(payload)}>
-                {
-                    payload.map((item, index) => {
-                        console.log('item value', item);
-                        return (<option key={index} value={item.value}>{item.label}</option>);
-                    })
-                }
-            </select>
+            <Predicate predicate={predicate} onChange={handlePredicateValue} />
+            <StrOperand predicate={predicate} predicateVal={predicateVal} strOperator={strOperator} onChange={handlePredicateValue} />
+            <NumOperand predicate={predicate} predicateVal={predicateVal} numOperator={numOperator} onChange={handlePredicateValue} />
         </div>
     );
 }
